@@ -1,5 +1,5 @@
 #include <iostream>
-#include "IntervalMeter.h"
+#include "Timer.h"
 using namespace std;
 
 void merge(int array[], int const left, int const mid, int const right) {
@@ -63,18 +63,17 @@ int main()
 {
 	int arr[] = { 12, 11, 13, 5, 6, 7 };
 	double arr_size = sizeof(arr) / sizeof(arr[0]);
-    IntervalMeter timer;
+    Timer timer;
 
 	cout << "Given array is \n";
 	printArray(arr, arr_size);
-    auto start = timer.getTS();
+    timer.start();
 	mergeSort(arr, 0, arr_size - 1);
-    auto end = timer.getTS();
+    timer.end();
 
 	cout << "\nSorted array is \n";
 	printArray(arr, arr_size);
     cout << endl;
-    cout << "Sorted in " << reinterpret_cast<chrono::duration<double>>(timer.getDiff(start, end)) << " ns\n";
+    cout << "Sorted in " << timer.getResult() << " ns\n";
 	return 0;
 }
-
