@@ -1,52 +1,78 @@
 #include <iostream>
 #include "MyList.h"
 
-template <typename T>
-Node::Node<T>(T _val) : val(_val), next(nullptr) {}
+Node::Node(int _val) : val(_val), next(nullptr) {}
 
-template <typename T>
-MyList::MyList<T>() : first(nullptr), last(nullptr) {}
+MyList::MyList() : first(nullptr), last(nullptr) {}
 
 bool MyList::is_empty()
 {
     return first == nullptr;
 }
 
-template <typename T>
-void MyList::push_back(T _val)
+void MyList::add(int _val)
 {
-    Node<T>* p = new Node<T>(_val);
+    Node* p = new Node(_val);
     if (this->is_empty())
     {
         this->first = p;
         this->last = p;
-        return;
     }
-    last->next = p;
-    last = p;
-}
-
-void MyList::print()
-{
-    if (this->is_empty()) return;
-    Node<T>* p = this->first;
-    while (p)
+    else 
     {
-        std::cout << p->val << " ";
-        p = p->next;
+        last->next = p;
+        last = p;
     }
-    std::cout << std::endl;
 }
 
-template <typename T>
-Node* MyList::find(T _val)
+void MyList::add(const int index, int _val)
+{
+    // slow сслылается на новый
+    // новый ссылается на fast
+    Node* p = new Node(_val);
+    if (this->is_empty())
+    {
+        this->first = p;
+        this->last = p;
+    }
+    else if (index == 0)
+    {
+        p->next = this->first;
+        this->first = p; 
+    }
+    else 
+    {
+        Node* slow = first;
+        Node* fast = first->next;
+        for (int i = 1; i < index; ++i)
+        {
+            fast = fast->next;
+            slow = slow->next;
+            if (!fast) break;
+        }
+        if (!fast)
+        {
+            std::cout << "This element does not exist" << std::endl;
+            return;
+        }
+        slow->next = p;
+        p->next = fast;
+    }
+}
+
+int MyList::indexOf(int _val)
 {
     Node* p = first;
-    while (p && p->val != _val) p = p->next;
-    return (p && p->val == _val) ? p : nullptr;
+    int i = 0;
+    while (p && p->val != _val)
+    {
+        p = p->next;
+        i++;
+    }
+    return (p && p->val == _val) ? i : -1;
 }
 
-void MyList::remove_first()
+void MyList::removeFirst()
 {
     if (is_empty()) return;
     Node* p = first;
@@ -54,12 +80,12 @@ void MyList::remove_first()
     delete p;
 }
 
-void MyList::remove_last()
+void MyList::removeLast()
 {
     if (is_empty()) return;
     if (first == last)
     {
-        remove_first();
+        removeFirst();
         return;
     }
     Node* p = first;
@@ -69,18 +95,17 @@ void MyList::remove_last()
     last = p;
 }
 
-template <typename T>
-void MyList::remove(T _val)
+void MyList::remove(int _val)
 {
     if (is_empty()) return;
     if (first->val == _val)
     {
-        remove_first();
+        removeFirst();
         return;
     }
     else if (last->val == _val)
     {
-        remove_last();
+        removeLast();
         return;
     }
     Node* slow = first;
@@ -97,6 +122,44 @@ void MyList::remove(T _val)
     }
     slow->next = fast->next;
     delete fast;
+}
+
+void MyList::removeAt(const int index)
+{
+    if (is_empty()) return;
+    if (index == 0)
+    {
+        removeFirst();
+        return;
+    }
+
+    Node* slow = first;
+    Node* fast = first->next;
+    for (int i = 1; i < index; ++i)
+    {
+        fast = fast->next;
+        slow = slow->next;
+        if (!fast) break;
+    }
+    if (!fast)
+    {
+        std::cout << "This element does not exist" << std::endl;
+        return;
+    }
+    slow->next = fast->next;
+    delete fast;
+}
+
+void MyList::print()
+{
+    if (this->is_empty()) return;
+    Node* p = this->first;
+    while (p)
+    {
+        std::cout << p->val << " ";
+        p = p->next;
+    }
+    std::cout << std::endl;
 }
 
 Node* MyList::operator[] (const int index)

@@ -1,24 +1,24 @@
-template <typename T>
 struct Node {
-    T val;
-    Node<T>* next;
-    Node<T>(T _val);
+    int val;
+    Node* next;
+    Node(int _val);
 };
 
-template <typename T>
 struct MyList {
-    Node<T>* first;
-    Node<T>* last;
+    Node* first;
+    Node* last;
 
     MyList();
 
     bool is_empty();
-    void push_back(T _val);
+    void add(int _val);
+    void add(const int index, int _val);
     void print();
-    Node<T>* find(T _val);
-    void remove_first();
-    void remove_last();
-    void remove(T _val);
+    int indexOf(int _val);
+    void removeFirst();
+    void removeLast();
+    void remove(int _val);
+    void removeAt(const int index);
 
     Node* operator[] (const int index);
 };
