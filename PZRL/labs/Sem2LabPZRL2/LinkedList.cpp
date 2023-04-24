@@ -42,15 +42,10 @@ LinkedList& LinkedList::operator=(const LinkedList& other)
         if (!this->isEmpty())
         {
             // Deleting old data
-            Node* slow = this->first;
-            Node* fast = this->first->next;
-            while (fast != nullptr)
+            while (!this->isEmpty())
             {
-                delete slow;
-                slow = fast;
-                fast = fast->next;
+                this->pop();
             }
-            delete slow;
         }
 
         if (!other.isEmpty())
@@ -96,15 +91,10 @@ LinkedList& LinkedList::operator=(LinkedList&& other) noexcept
         if (!this->isEmpty())
         {
             // Deleting old data
-            Node* slow = this->first;
-            Node* fast = this->first->next;
-            while (fast != nullptr)
+            while (!this->isEmpty())
             {
-                delete slow;
-                slow = fast;
-                fast = fast->next;
+                this->pop();
             }
-            delete slow;
         }
 
         this->_size = other._size;
@@ -119,17 +109,9 @@ LinkedList& LinkedList::operator=(LinkedList&& other) noexcept
 
 LinkedList::~LinkedList()
 {
-    if(first != nullptr)
+    while (!isEmpty())
     {
-        Node* slow = this->first;
-        Node* fast = this->first->next;
-        while (fast != nullptr)
-        {
-            delete slow;
-            slow = fast;
-            fast = fast->next;
-        }
-        delete slow;
+        this->pop();
     }
 }
 
@@ -172,6 +154,7 @@ void LinkedList::pop()
         delete last;
         last = node;
     }
+    _size--;
 }
 
 const ValueType& LinkedList::top() const
@@ -189,45 +172,9 @@ size_t LinkedList::size() const
     return _size;
 }
 
-Value& LinkedList::operator[](size_t idx)
-{
-    if (isEmpty()) throw std::out_of_range("The list is empty");
-    Node* node = first;
-    for (size_t i = 0; i < idx; i++)
-    {
-        node = node->next;
-        if (!node) throw std::out_of_range("Index out of range");
-    }
-    return node->val;
-}
-
-const Value& LinkedList::operator[](size_t idx) const
-{
-    if (isEmpty()) throw std::out_of_range("The list is empty");
-    Node* node = first;
-    for (size_t i = 0; i < idx; i++)
-    {
-        node = node->next;
-        if (!node) throw std::out_of_range("Index out of range");
-    }
-    return node->val;
-}
-
 LinkedList::Iterator::Iterator(Node* ptr)
 {
     this->_ptr = ptr;
-}
-
-long long LinkedList::find(const Value& value) const
-{
-    Node* node = first;
-    long long i = 0;
-    while (node && node->val != value)
-    {
-        node = node->next;
-        i++;
-    }
-    return (node && node->val == value) ? i : -1;
 }
 
 Value& LinkedList::Iterator::operator*()

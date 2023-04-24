@@ -5,7 +5,7 @@
 
 using Value = double;
 //! \brief Класс, реализующий С++ контейнер vector для типа int
-class Vector : IStackImplementation
+class Vector : public IStackImplementation
 {
     public:
         //! Конструктор без параметров

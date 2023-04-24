@@ -11,8 +11,16 @@ int main()
     {
         values[i] = i;
     }
-    Stack* stack = new Stack(values, 10, StackContainer::Vector);
-    cout << stack->isEmpty() << endl;
+    Stack stack = Stack(values, 10, StackContainer::Vector);
+    for (size_t i = 0; i < 10; ++i)
+    {
+        stack.pop();
+    }
+    cout << stack.top() << endl;
+    cout << stack.isEmpty() << endl;
     cout << "Hello World!" << endl;
+    Stack stack2;
+    stack2 = Stack(stack);
+    cout << stack2.top() << endl;
     return 0;
 }

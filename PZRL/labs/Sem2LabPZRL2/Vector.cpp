@@ -1,7 +1,6 @@
 #include "Vector.h"
 #include <cstring>
 #include <stdexcept>
-#include <iostream>
 
 Vector::Vector(const Value* rawArray, const size_t size, float coef)
 {
@@ -68,7 +67,10 @@ Vector& Vector::operator=(Vector&& other) noexcept
 
 Vector::~Vector()
 {
-    delete[] _data;
+    if (_data != nullptr)
+    {
+        delete[] _data;
+    }
 }
 
 void Vector::push(const Value& value)
@@ -101,7 +103,7 @@ const ValueType& Vector::top() const
 
 bool Vector::isEmpty() const
 {
-    return _data == nullptr;
+    return _size == 0;
 }
 
 size_t Vector::size() const
