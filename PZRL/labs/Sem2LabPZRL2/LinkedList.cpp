@@ -18,7 +18,6 @@ LinkedList::LinkedList(const Value* rawArray, const size_t __size)
 
 LinkedList::LinkedList(const LinkedList& other)
 {
-
     if (!other.isEmpty())
     {
         this->_size = other._size;

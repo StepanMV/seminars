@@ -44,15 +44,6 @@ public:
     // размер
     size_t size() const;
 
-    //! Доступ к элементу по индексу
-    Value& operator[](size_t idx);
-    //! Доступ к элементу по индексу
-    const Value& operator[](size_t idx) const;
-
-    //! Поиск первого вхождения значения
-    //! \return - индекс элемента
-    long long find(const Value& value) const;
-
     class Iterator
     {
         Node* _ptr;
