@@ -1,0 +1,3 @@
+C:/Users/Mizyu/CLionProjects/kurwa/cmake-build-debug/CMakeFiles/kurwa.dir
+C:/Users/Mizyu/CLionProjects/kurwa/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Mizyu/CLionProjects/kurwa/cmake-build-debug/CMakeFiles/rebuild_cache.dir
