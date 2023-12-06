@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug with GDB",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/bin/task8.exe",
+            "args": ["wedrar ti saeelp", "dictionary.txt"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build/bin",
+        }
+    ]
+}
